@@ -18,3 +18,13 @@ deploy:
   script:
     - make deploy
   when: manual
+
+name: My Workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      
