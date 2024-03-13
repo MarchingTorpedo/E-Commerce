@@ -24,7 +24,7 @@ name: My Workflow
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   my_job:
