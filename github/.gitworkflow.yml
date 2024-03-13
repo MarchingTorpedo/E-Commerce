@@ -1,0 +1,20 @@
+lint:
+  script:
+    - pylint src/
+    - flake8 src/
+  when: always
+
+test:
+  script:
+    - pytest tests/
+  when: on_success
+
+build:
+  script:
+    - make build
+  when: on_success
+
+deploy:
+  script:
+    - make deploy
+  when: manual
