@@ -1,4 +1,4 @@
-<form>
+<form [formGroup]="registerForm" (ngSubmit)="register()">
     <!--First Name and Last Name-->
     <div class="row mb-3">
         <div class="col">
@@ -18,9 +18,23 @@
                 Name should start with an alphabet.
             </div>
         </div>
+
         <div class="col">
             <label for="lastname" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastname" formControlName="lasttName">
+            <input type="text" class="form-control" id="lastname" formControlName="lastName">
+
+            <!--Errors 1.06.47 -->
+            <div class="form-text text-danger" *ngIf="LastName.errors?.['required'] && (LastName.dirty || LastName.touched)">
+                Last Name is Required
+            </div>
+            <div class="form-text text-danger"
+                *ngIf="!!LastName.errors?.['minlength'] && (LastName.dirty || LastName.touched)">
+                Last Name is too Short. At least 2 characters
+            </div>
+            <div class="form-text text-danger"
+                *ngIf="LastName.errors?.['pattern'] && (LastName.dirty || LastName.touched)">
+                Name should start with an alphabet.
+            </div>
         </div>
     </div>
 
@@ -42,16 +56,31 @@
         <div class="col mb-3">
             <label for="pwd" class="form-label">Password</label>
             <input type="password" class="form-control" id="pwd" formControlName="pwd">
+
+            <!--Errors-->
+            <div class="form-text text-danger" *ngIf="PWD.errors?.['required'] && (PWD.dirty || PWD.touched)">
+                Password is Required
+            </div>
+            <div class="form-text text-danger" *ngIf="PWD.errors?.['minlength'] || PWD.errors?.['maxlength'] && (PWD.dirty || PWD.touched)">
+                Password should be at least 6 and at the max 15 characters long.
+            </div>
         </div>
         <div class="col mb-3">
             <label for="rpwd" class="form-label">Repeat Password</label>
             <input type="password" class="form-control" id="rpwd" formControlName="rpwd">
+
+            <!--Errors-->
+            <div class="form-text text-danger" *ngIf="invalidRPWD">
+                Doesn't match with password
+            </div>
+
+
         </div>
     </div>
 
     <!--Create Account Button-->
     <div>
-        <button type="submit" class="d-block mx-auto btn btn-outline-primary">
+        <button type="submit" class="d-block mx-auto btn btn-outline-primary" [disabled]="registerForm.invalid">
             Create Account
         </button>
     </div>

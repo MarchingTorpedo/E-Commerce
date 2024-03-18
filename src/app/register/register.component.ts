@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class RegisterComponent implements OnInit{
   registerForm!: FormGroup;
+  invalidRPWD: boolean = false;
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -40,6 +41,10 @@ export class RegisterComponent implements OnInit{
       rpwd: [''],
     });
   }
+
+  register() {}
+
+  //#region Getters
 
   get FirstName(): FormControl {
     return this.registerForm.get('firstName') as FormControl;
